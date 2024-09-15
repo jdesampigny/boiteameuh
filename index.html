@@ -1,12 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boîte à Meuh</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .box {
+            text-align: center;
+            background-color: #ffe0b3;
+            padding: 20px;
+            border: 2px solid #d2691e;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>Secoue ton téléphone pour entendre un meuh !</h1>
-    <audio id="meuhSound" src="meuh.mp3"></audio>
-    <p id="message"></p>
-    <script src="script.js"></script>
+    <div class="box">
+        <h1>Boîte à Meuh</h1>
+        <p>Secouez votre téléphone pour entendre le bruit !</p>
+    </div>
+
+    <script>
+        // Charger le son de la boîte à meuh
+        let meuhSound = new Audio('meuh.mp3');
+
+        // Fonction pour jouer le son
+        function playSound() {
+            meuhSound.play();
+        }
+
+        // Détection du mouvement du téléphone
+        window.addEventListener('devicemotion', function(event) {
+            let acceleration = event.acceleration;
+            // Si le mouvement est suffisamment fort, on joue le son
+            if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
+                playSound();
+            }
+        });
+    </script>
 </body>
 </html>
