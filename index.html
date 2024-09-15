@@ -23,12 +23,24 @@
         h1 {
             font-size: 2rem;
         }
+        button {
+            padding: 10px 20px;
+            background-color: #d2691e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c1581a;
+        }
     </style>
 </head>
 <body>
     <div class="box">
         <h1>Boîte à Meuh</h1>
         <p>Secouez votre téléphone pour entendre le bruit !</p>
+        <button id="enableMotion">Activer le mouvement</button>
     </div>
 
     <script>
@@ -40,14 +52,35 @@
             meuhSound.play();
         }
 
-        // Détection du mouvement du téléphone
-        window.addEventListener('devicemotion', function(event) {
-            let acceleration = event.acceleration;
-            // Si le mouvement est suffisamment fort, on joue le son
-            if (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15) {
-                playSound();
+        // Fonction pour activer la détection de mouvement
+        function enableMotionDetection() {
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                // Pour iOS, demander l'autorisation de l'utilisateur
+                DeviceMotionEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            startListeningForShake();
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // Pour les autres navigateurs, commencer immédiatement
+                startListeningForShake();
             }
-        });
+        }
+
+        // Fonction pour écouter les mouvements du téléphone
+        function startListeningForShake() {
+            window.addEventListener('devicemotion', function(event) {
+                let acceleration = event.acceleration;
+                if (acceleration && (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15)) {
+                    playSound();
+                }
+            });
+        }
+
+        // Activer la détection de mouvement lorsque l'utilisateur clique sur le bouton
+        document.getElementById('enableMotion').addEventListener('click', enableMotionDetection);
     </script>
 </body>
 </html>
