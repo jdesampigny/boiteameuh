@@ -10,29 +10,39 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            background-color: #f7eae1; /* Douce couleur pastel de fond */
+            font-family: 'Verdana', sans-serif;
         }
         .box {
             text-align: center;
-            background-color: #ffe0b3;
+            background-color: #ffe8d6; /* Pastel léger pour le fond de la boîte */
             padding: 20px;
-            border: 2px solid #d2691e;
-            border-radius: 10px;
+            border: 2px solid #ffb3b3; /* Couleur pastel rosée pour la bordure */
+            border-radius: 15px; /* Angle plus doux pour un effet élégant */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour la profondeur */
         }
         h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
+            color: #ff6f61; /* Couleur chaude et romantique pour le titre */
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: #6b4f4f; /* Un ton légèrement plus sombre pour un contraste doux */
         }
         button {
-            padding: 10px 20px;
-            background-color: #d2691e;
+            padding: 12px 24px;
+            background-color: #ffb3b3; /* Bouton rose pastel */
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            font-size: 1rem;
         }
         button:hover {
-            background-color: #c1581a;
+            background-color: #ff9a9a; /* Changement de couleur pour un effet interactif */
+        }
+        p {
+            color: #6b4f4f; /* Texte harmonisé avec le reste de la palette */
         }
     </style>
 </head>
@@ -41,7 +51,7 @@
         <h1>Boîte à Meuh</h1>
         <h2>Mariage Dorothée et Mathieu</h2>
         <p>Secouez votre téléphone pour entendre le bruit !</p>
-        <button id="enableMotion">Attention : appuyer pour autoriser la détection de mouvement </button>
+        <button id="enableMotion">Attention : appuyer pour autoriser la détection de mouvement</button>
     </div>
 
     <script>
@@ -49,8 +59,8 @@
         let meuhSound = new Audio('meuh.mp3');
 
         // Fonction pour jouer le son
-       function playSound() {
-       
+        function playSound() {
+            meuhSound.currentTime = 0; // Repartir du début du son
             meuhSound.play();
         }
 
@@ -71,7 +81,7 @@
             }
         }
 
-     // Fonction pour écouter les mouvements du téléphone
+        // Fonction pour écouter les mouvements du téléphone
         function startListeningForShake() {
             window.addEventListener('devicemotion', function(event) {
                 let acceleration = event.acceleration;
@@ -83,7 +93,7 @@
                         acceleration.z * acceleration.z
                     );
 
-                    // Si la magnitude est supérieure à 10 (ajustable), jouer le son
+                    // Si la magnitude est supérieure à 8 (ajustable), jouer le son
                     if (totalAcceleration > 8) {
                         playSound();
                     }
