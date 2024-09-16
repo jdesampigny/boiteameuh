@@ -69,12 +69,22 @@
             }
         }
 
-        // Fonction pour écouter les mouvements du téléphone
+     // Fonction pour écouter les mouvements du téléphone
         function startListeningForShake() {
             window.addEventListener('devicemotion', function(event) {
                 let acceleration = event.acceleration;
-                if (acceleration && (Math.abs(acceleration.x) > 15 || Math.abs(acceleration.y) > 15 || Math.abs(acceleration.z) > 15)) {
-                    playSound();
+                if (acceleration) {
+                    // Calcule la magnitude de l'accélération globale
+                    let totalAcceleration = Math.sqrt(
+                        acceleration.x * acceleration.x +
+                        acceleration.y * acceleration.y +
+                        acceleration.z * acceleration.z
+                    );
+
+                    // Si la magnitude est supérieure à 10 (ajustable), jouer le son
+                    if (totalAcceleration > 10) {
+                        playSound();
+                    }
                 }
             });
         }
