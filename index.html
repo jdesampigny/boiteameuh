@@ -48,10 +48,13 @@
         button:hover {
             background-color: #ffab91; /* Pêche un peu plus foncé lors du hover */
         }
-        .box {
-            width: 300px; /* Largeur de la boîte */
+        .round-image {
+            width: 150px; /* Largeur de l'image */
+            height: 150px; /* Hauteur de l'image */
+            border-radius: 50%;
+            border: 3px solid #ffccbc; /* Bordure pastel pêche */
+            object-fit: cover; /* Assure que l'image couvre le cadre sans déformation */
             margin-bottom: 20px;
-            transition: transform 0.2s;
         }
 
         /* Animation tremblement plus intense */
@@ -76,7 +79,7 @@
 </head>
 <body>
     <div class="box" id="box">
-        <img src="mariage.jpg" alt="Mariage" class="round-image">
+        <img src="mariage.jpeg" alt="Mariage" class="round-image">
         <h1>Boîte à Meuh</h1>
         <h2>Mariage Dorothée et Mathieu</h2>
         <p>Secouez votre téléphone pour entendre le bruit !</p>
