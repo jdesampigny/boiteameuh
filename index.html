@@ -50,7 +50,7 @@
 
         // Fonction pour jouer le son
        function playSound() {
-            meuhSound.currentTime = 0; // Repartir du début
+       
             meuhSound.play();
         }
 
@@ -84,7 +84,7 @@
                     );
 
                     // Si la magnitude est supérieure à 10 (ajustable), jouer le son
-                    if (totalAcceleration > 3) {
+                    if (totalAcceleration > 8) {
                         playSound();
                     }
                 }
