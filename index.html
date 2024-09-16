@@ -10,39 +10,43 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f7eae1; /* Douce couleur pastel de fond */
-            font-family: 'Verdana', sans-serif;
+            background-color: #f4f1f1; /* Couleur de fond pastel douce */
+            font-family: 'Trebuchet MS', sans-serif;
         }
         .box {
             text-align: center;
-            background-color: #ffe8d6; /* Pastel léger pour le fond de la boîte */
+            background-color: #fce4ec; /* Rose pastel */
             padding: 20px;
-            border: 2px solid #ffb3b3; /* Couleur pastel rosée pour la bordure */
-            border-radius: 15px; /* Angle plus doux pour un effet élégant */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour la profondeur */
+            border: 2px solid #ffccbc; /* Pastel pêche pour la bordure */
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             font-size: 2.5rem;
-            color: #ff6f61; /* Couleur chaude et romantique pour le titre */
+            color: #d48b91; /* Rose un peu plus soutenu */
+            margin-bottom: 0;
         }
         h2 {
             font-size: 1.5rem;
-            color: #6b4f4f; /* Un ton légèrement plus sombre pour un contraste doux */
+            color: #b0bec5; /* Gris pastel */
+            margin-top: 0;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #9e9e9e; /* Gris doux */
         }
         button {
             padding: 12px 24px;
-            background-color: #ffb3b3; /* Bouton rose pastel */
+            background-color: #ffccbc; /* Pastel pêche */
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 1rem;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #ff9a9a; /* Changement de couleur pour un effet interactif */
-        }
-        p {
-            color: #6b4f4f; /* Texte harmonisé avec le reste de la palette */
+            background-color: #ffab91; /* Pêche un peu plus foncé lors du hover */
         }
     </style>
 </head>
@@ -64,23 +68,6 @@
             meuhSound.play();
         }
 
-        // Fonction pour activer la détection de mouvement
-        function enableMotionDetection() {
-            if (typeof DeviceMotionEvent.requestPermission === 'function') {
-                // Pour iOS, demander l'autorisation de l'utilisateur
-                DeviceMotionEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            startListeningForShake();
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                // Pour les autres navigateurs, commencer immédiatement
-                startListeningForShake();
-            }
-        }
-
         // Fonction pour écouter les mouvements du téléphone
         function startListeningForShake() {
             window.addEventListener('devicemotion', function(event) {
@@ -93,7 +80,7 @@
                         acceleration.z * acceleration.z
                     );
 
-                    // Si la magnitude est supérieure à 8 (ajustable), jouer le son
+                    // Si la magnitude est supérieure à 8, jouer le son
                     if (totalAcceleration > 8) {
                         playSound();
                     }
@@ -101,8 +88,27 @@
             });
         }
 
-        // Activer la détection de mouvement lorsque l'utilisateur clique sur le bouton
-        document.getElementById('enableMotion').addEventListener('click', enableMotionDetection);
+        // Fonction pour activer la détection de mouvement avec permission pour iOS
+        function enableMotionDetection() {
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                // Pour iOS, demander la permission
+                DeviceMotionEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            startListeningForShake();
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // Pour Android ou les autres navigateurs qui n'ont pas besoin de permission
+                startListeningForShake();
+            }
+        }
+
+        // Activer la détection de mouvement après une interaction utilisateur
+        document.getElementById('enableMotion').addEventListener('click', function() {
+            enableMotionDetection();
+        });
     </script>
 </body>
 </html>
