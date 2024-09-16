@@ -49,7 +49,8 @@
         let meuhSound = new Audio('meuh.mp3');
 
         // Fonction pour jouer le son
-        function playSound() {
+       function playSound() {
+            meuhSound.currentTime = 0; // Repartir du début
             meuhSound.play();
         }
 
